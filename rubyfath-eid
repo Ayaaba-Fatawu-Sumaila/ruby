@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubyfath - Eid Mubarak</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #9b59b6;
+            --secondary: #e74c3c;
+            --accent: #f1c40f;
+            --text: #fff;
+            --dark-bg: rgba(0, 0, 0, 0.4);
+            --light-bg: rgba(255, 255, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            color: var(--text);
+            position: relative;
+            background: linear-gradient(135deg, #2c3e50, #4a235a);
+        }
+        
+        #dynamic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            transition: all 8s ease-in-out;
+            z-index: -2;
+            transform: scale(1);
+            animation: zoom 20s infinite alternate;
+        }
+        
+        @keyframes zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(142, 68, 173, 0.3), 
+                rgba(52, 152, 219, 0.3), 
+                rgba(26, 188, 156, 0.3));
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Header Section */
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+            position: relative;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 15px rgba(241, 196, 15, 0.8);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 50%;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+            animation: colorChange 3s infinite alternate;
+        }
+        
+        @keyframes colorChange {
+            0% { color: var(--secondary); }
+            100% { color: var(--accent); }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background: var(--dark-bg);
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Quote Section */
+        .quote-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .quote-container {
+            background: var(--dark-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .quote-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .quote-container h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(241, 196, 15, 0.5);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .quote-container p {
+            margin: 15px 0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .quote-container pre {
+            font-family: 'Montserrat', sans-serif;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 1.1rem;
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(241, 196, 15, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0); }
+        }
+        
+        /* Controls */
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: var(--dark-bg);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border);
+            animation: fadeIn 1s ease 0.5s both;
+        }
+        
+        .controls-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .quote-counter {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 500;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .next-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .next-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .next-btn:hover::before {
+            left: 100%;
+        }
+        
+        .next-btn:active {
+            transform: translateY(1px);
+        }
+        
+        /* Eid Greeting Section */
+        .eid-section {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            z-index: 5;
+            animation: fadeIn 1s ease 0.7s both;
+            padding: 30px;
+            background: var(--light-bg);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border);
+        }
+        
+        .eid-greeting h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.7);
+            animation: glow 3s ease-in-out infinite;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .eid-greeting h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 50%;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(241, 196, 15, 0.7); }
+            50% { text-shadow: 0 0 30px rgba(241, 196, 15, 0.9), 0 0 50px rgba(241, 196, 15, 0.7); }
+            100% { text-shadow: 0 0 10px rgba(241, 196, 15, 0.7); }
+        }
+        
+        .greeting-sub {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        
+        /* Audio Player Section */
+        .audio-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: var(--dark-bg);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border);
+            max-width: 500px;
+            margin: 30px auto;
+            animation: fadeIn 1s ease 1s both;
+        }
+        
+        .audio-title {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .audio-controls button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .audio-controls button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .audio-controls button:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+        }
+        
+        .audio-controls button:hover::before {
+            left: 100%;
+        }
+        
+        /* Decorations */
+        .decoration {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .moon {
+            top: 50px;
+            right: 50px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ecf0f1 0%, #bdc3c7 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(236, 240, 241, 0.7);
+            animation: moonGlow 5s infinite alternate, float 6s ease-in-out infinite;
+        }
+        
+        @keyframes moonGlow {
+            0% { box-shadow: 0 0 30px rgba(236, 240, 241, 0.7); }
+            100% { box-shadow: 0 0 60px rgba(236, 240, 241, 0.9); }
+        }
+        
+        .lanterns {
+            top: 30px;
+            left: 50px;
+            font-size: 3rem;
+            animation: swing 8s infinite ease-in-out;
+            transform-origin: top center;
+            text-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
+        }
+        
+        @keyframes swing {
+            0% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+        
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            z-index: 1;
+            font-size: 2rem;
+            animation: floatUp 10s ease-in forwards;
+            opacity: 0.7;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Fireworks */
+        .fireworks {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: explode 1.5s forwards;
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0) scale(10);
+                opacity: 0;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-top: 20px;
+            animation: fadeIn 1s ease 1.2s both;
+            border-top: 1px solid var(--border);
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .social-icons a {
+            color: var(--accent);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--dark-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border);
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.7);
+            background: rgba(241, 196, 15, 0.2);
+        }
+        
+        /* Audio Wave Animation */
+        .audio-wave {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            gap: 3px;
+            margin-top: 15px;
+        }
+        
+        .wave-bar {
+            width: 4px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 10px;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1.5); }
+        }
+        
+        .wave-bar:nth-child(1) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+            
+            .eid-greeting h1 {
+                font-size: 3.5rem;
+            }
+            
+            .quote-container {
+                padding: 20px;
+            }
+            
+            .moon {
+                width: 70px;
+                height: 70px;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .lanterns {
+                font-size: 2rem;
+                left: 20px;
+                top: 20px;
+            }
+            
+            .main-grid {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.3rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+            
+            .eid-greeting h1 {
+                font-size: 2.8rem;
+            }
+            
+            .quote-container h3 {
+                font-size: 1.3rem;
+            }
+            
+            .quote-container p,
+            .quote-container pre {
+                font-size: 1rem;
+            }
+            
+            .next-btn, .audio-controls button {
+                padding: 12px 25px;
+                font-size: 0.95rem;
+            }
+            
+            .greeting-sub {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dynamic Background -->
+    <div id="dynamic-bg"></div>
+    <div class="overlay"></div>
+    
+    <!-- Floating Elements Container -->
+    <div id="floatingContainer"></div>
+    
+    <!-- Decorations -->
+    <div class="decoration moon"></div>
+    <div class="decoration lanterns">🕋</div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <div class="logo">RUBY<span>FATH</span> Eid Mubarak</div>
+                <div class="subtitle">RUBYFATH HAVE A BLESSED EID WITH THE FAMILY ❤️</div>
+            </div>
+        </header>
+        
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Quote Section -->
+            <div class="quote-section">
+                <!-- Question Container -->
+                <div class="quote-container">
+                    <h3>YOUR QUESTION:</h3>
+                    <p>'But everyone else is doing it. It is normal. So why shouldn't I?'</p>
+                </div>
+                
+                <!-- Answer Container -->
+                <div class="quote-container">
+                    <h3>ANSWER:</h3>
+                    <p>'And if you follow most of those on earth, they will mislead you far from Allah's path. They follow nothing except conjectures, and they do nothing except lies.'</p>
+                    <pre>Qur'an 6:116</pre>
+                </div>
+            </div>
+            
+            <!-- Eid Greeting Section -->
+            <div class="eid-section">
+                <div class="eid-greeting">
+                    <h1>Eid Mubarak</h1>
+                    <p class="greeting-sub">May the divine blessings of Allah bring you hope, faith, and joy on Eid al-Adha and forever. Dear stay safe.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <div class="controls-inner">
+                <div class="quote-counter">Advice <span id="currentQuote">1</span> of <span id="totalQuotes">4</span></div>
+                <button class="next-btn" id="nextBtn">
+                    <i class="fas fa-arrow-right"></i> Next Advice
+                </button>
+            </div>
+        </div>
+        
+        <!-- Audio Player -->
+        <div class="audio-section">
+            <div class="audio-title">Takbeer of Eid</div>
+            <div class="audio-controls">
+                <button id="audioToggle">
+                    <i class="fas fa-play"></i> Play Audio
+                </button>
+            </div>
+            <div class="audio-wave" id="audioWave">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>Created by rubyfath ❤️ | Eid al-Adha 2025</p>
+        
+    </footer>
+    
+    <!-- Hidden Audio Element -->
+    <audio id="eidAudio" loop>
+        <source src="https://github.com/Ayaaba-Fatawu-Sumaila/ruby/blob/main/AUD-20250606-WA0000.mp3?raw=true" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingContainer = document.getElementById('floatingContainer');
+            const nextBtn = document.getElementById('nextBtn');
+            const audioToggle = document.getElementById('audioToggle');
+            const eidAudio = document.getElementById('eidAudio');
+            const dynamicBg = document.getElementById('dynamic-bg');
+            const audioIcon = audioToggle.querySelector('i');
+            const audioWave = document.getElementById('audioWave');
+            const currentQuoteEl = document.getElementById('currentQuote');
+            const totalQuotesEl = document.getElementById('totalQuotes');
+            
+            // Background images
+            const bgImages = [
+                "https://raw.githubusercontent.com/Ayaaba-Fatawu-Sumaila/ruby/main/fw_2025-06-05_22-22-29.jpg",
+                "https://raw.githubusercontent.com/Ayaaba-Fatawu-Sumaila/ruby/main/rubyfath1-20221220-WA0008.jpg",
+                "https://raw.githubusercontent.com/Ayaaba-Fatawu-Sumaila/ruby/main/rubyfath2_2025-06-05_22-16-05.jpg",
+                "https://raw.githubusercontent.com/Ayaaba-Fatawu-Sumaila/ruby/main/rubyfath4_2025-06-05_22-16-52.jpg",
+                "https://raw.githubusercontent.com/Ayaaba-Fatawu-Sumaila/ruby/main/pho_2025-06-05_23-08-20.jpg"
+            ];
+            
+            let currentBgIndex = 0;
+            
+            // Quotes data
+            const quotes = [
+                {
+                    question: "But everyone else is doing it. It is normal. So why shouldn't I?",
+                    answer: "And if you follow most of those on earth, they will mislead you far from Allah's path. They follow nothing except conjectures, and they do nothing except lies.",
+                    reference: "Qur'an 6:116"
+                },
+                {
+                    question: "How should I respond to those who wrong me?",
+                    answer: "Repel evil with that which is better. Then the one who was your enemy will become your dearest friend.",
+                    reference: "Qur'an 41:34"
+                },
+                {
+                    question: "What is the value of patience?",
+                    answer: "O you who believe, seek help through patience and prayer. Indeed, Allah is with the patient.",
+                    reference: "Qur'an 2:153"
+                },
+                {
+                    question: "How should I spend my wealth?",
+                    answer: "Those who spend their wealth in the way of Allah and then do not follow up what they have spent with reminders of their generosity or with injury will have their reward with their Lord.",
+                    reference: "Qur'an 2:262"
+                }
+            ];
+            
+            let currentQuoteIndex = 0;
+            
+            // Initialize background
+            function setBackground() {
+                dynamicBg.style.backgroundImage = `url(${bgImages[currentBgIndex]})`;
+                
+                // Preload next image
+                const nextIndex = (currentBgIndex + 1) % bgImages.length;
+                const nextImage = new Image();
+                nextImage.src = bgImages[nextIndex];
+                
+                setTimeout(() => {
+                    currentBgIndex = nextIndex;
+                    setBackground();
+                }, 6000);
+            }
+            
+            // Set quote counter
+            function updateQuoteCounter() {
+                currentQuoteEl.textContent = currentQuoteIndex + 1;
+                totalQuotesEl.textContent = quotes.length;
+            }
+            
+            // Start background rotation
+            setBackground();
+            updateQuoteCounter();
+            
+            // Next quote button
+            nextBtn.addEventListener('click', function() {
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                updateQuote();
+                updateQuoteCounter();
+            });
+            
+            // Update displayed quote
+            function updateQuote() {
+                const quote = quotes[currentQuoteIndex];
+                const quoteContainers = document.querySelectorAll('.quote-container');
+                
+                quoteContainers[0].querySelector('p').textContent = `'${quote.question}'`;
+                quoteContainers[1].querySelector('p').textContent = `'${quote.answer}'`;
+                quoteContainers[1].querySelector('pre').textContent = quote.reference;
+                
+                // Add animation effect
+                quoteContainers.forEach(container => {
+                    container.style.animation = 'none';
+                    setTimeout(() => {
+                        container.style.animation = 'fadeIn 0.8s ease, float 6s ease-in-out infinite';
+                    }, 10);
+                });
+            }
+            
+            // Toggle audio
+            audioToggle.addEventListener('click', function() {
+                if (eidAudio.paused) {
+                    eidAudio.play().catch(e => console.log("Audio play failed:", e));
+                    audioIcon.className = 'fas fa-pause';
+                    audioToggle.innerHTML = '<i class="fas fa-pause"></i> Pause Audio';
+                    audioWave.style.display = 'flex';
+                } else {
+                    eidAudio.pause();
+                    audioIcon.className = 'fas fa-play';
+                    audioToggle.innerHTML = '<i class="fas fa-play"></i> Play Audio';
+                    audioWave.style.display = 'none';
+                }
+            });
+            
+            // Create floating elements
+            function createFloatingElement() {
+                const floating = document.createElement('div');
+                floating.classList.add('floating');
+                
+                // Random emojis
+                const emojis = ['💗', '💐', '🌹', '✨', '🌙', '🕌','☘️','🍀','🦋', '🌟', '🌺', '☪️', '🕊️', '🎆', '🌠'];
+                floating.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Random position
+                const left = Math.random() * 100;
+                floating.style.left = `${left}%`;
+                floating.style.fontSize = `${Math.random() * 2 + 1}rem`;
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 5;
+                floating.style.animationDuration = `${duration}s`;
+                
+                // Random rotation
+                const rotation = Math.random() * 360;
+                floating.style.transform = `rotate(${rotation}deg)`;
+                
+                floatingContainer.appendChild(floating);
+                
+                // Remove element after animation completes
+                setTimeout(() => {
+                    floating.remove();
+                }, duration * 1000);
+            }
+            
+            // Start creating floating elements
+            setInterval(createFloatingElement, 300);
+            
+            // Create fireworks
+            function createFirework() {
+                const firework = document.createElement('div');
+                firework.classList.add('fireworks');
+                
+                // Random position
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                firework.style.left = `${left}%`;
+                firework.style.top = `${top}%`;
+                
+                // Random color
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff9900', '#ff33cc'];
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random size
+                const size = Math.random() * 8 + 3;
+                firework.style.width = `${size}px`;
+                firework.style.height = `${size}px`;
+                
+                document.body.appendChild(firework);
+                
+                // Remove element after animation completes
+                setTimeout(() => {
+                    firework.remove();
+                }, 1500);
+            }
+            
+            // Create periodic fireworks
+            setInterval(createFirework, 1500);
+            
+            // Add a burst of fireworks when clicked anywhere
+            document.body.addEventListener('click', function(e) {
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createFireworkAtPosition(e.clientX, e.clientY);
+                    }, i * 100);
+                }
+            });
+            
+            function createFireworkAtPosition(x, y) {
+                const firework = document.createElement('div');
+                firework.classList.add('fireworks');
+                firework.style.left = `${x}px`;
+                firework.style.top = `${y}px`;
+                
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff9900', '#ff33cc'];
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random size
+                const size = Math.random() * 8 + 3;
+                firework.style.width = `${size}px`;
+                firework.style.height = `${size}px`;
+                
+                document.body.appendChild(firework);
+                
+                setTimeout(() => {
+                    firework.remove();
+                }, 1500);
+            }
+            
+            // Hide audio wave initially
+            audioWave.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
