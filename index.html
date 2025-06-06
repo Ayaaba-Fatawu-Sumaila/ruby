@@ -653,6 +653,12 @@
             .greeting-sub {
                 font-size: 1.1rem;
             }
+            a {
+                text-decoration: none;
+                columns: white;
+    
+            }
+
         }
     </style>
 </head>
@@ -674,7 +680,7 @@
         <header>
             <div class="logo-container">
                 <div class="logo">RUBY<span>FATH</span> Eid Mubarak</div>
-                <div class="subtitle">RUBYFATH HAVE A BLESSED EID WITH THE FAMILY ❤️</div>
+                <div class="subtitle">HAVE A BLESSED EID WITH THE FAMILY ❤️</div>
             </div>
         </header>
         
@@ -685,14 +691,14 @@
                 <!-- Question Container -->
                 <div class="quote-container">
                     <h3>YOUR QUESTION:</h3>
-                    <p>'But everyone else is doing it. It is normal. So why shouldn't I?'</p>
+                    <p>'What is the value of patience?'</p>
                 </div>
                 
                 <!-- Answer Container -->
                 <div class="quote-container">
                     <h3>ANSWER:</h3>
-                    <p>'And if you follow most of those on earth, they will mislead you far from Allah's path. They follow nothing except conjectures, and they do nothing except lies.'</p>
-                    <pre>Qur'an 6:116</pre>
+                    <p>'O you who believe, seek help through patience and prayer. Indeed, Allah is with the patient.'</p>
+                    <pre>Qur'an 2:153</pre>
                 </div>
             </div>
             
@@ -700,7 +706,7 @@
             <div class="eid-section">
                 <div class="eid-greeting">
                     <h1>Eid Mubarak</h1>
-                    <p class="greeting-sub">May the divine blessings of Allah bring you hope, faith, and joy on Eid al-Adha and forever. Dear stay safe.</p>
+                    <p class="greeting-sub">May the divine blessings of Allah bring you hope, faith, and joy on Eid al-Adha and forever. May Allah accept our Prayers and Duas. Dear, stay safe.</p>
                 </div>
             </div>
         </div>
@@ -710,7 +716,7 @@
             <div class="controls-inner">
                 <div class="quote-counter">Advice <span id="currentQuote">1</span> of <span id="totalQuotes">4</span></div>
                 <button class="next-btn" id="nextBtn">
-                    <i class="fas fa-arrow-right"></i> Next Advice
+                    <i class="fas fa-arrow-right"></i><a class="nx" href="https://ayaaba-fatawu-sumaila.github.io/RubyFath/">Next Advices</a> 
                 </button>
             </div>
         </div>
@@ -770,16 +776,12 @@
             
             // Quotes data
             const quotes = [
+                
                 {
                     question: "What is the value of patience?",
                     answer: "O you who believe, seek help through patience and prayer. Indeed, Allah is with the patient.",
                     reference: "Qur'an 2:153"
-                },
-                {
-                    question: "How should I spend my wealth?",
-                    answer: "Those who spend their wealth in the way of Allah and then do not follow up what they have spent with reminders of their generosity or with injury will have their reward with their Lord.",
-                    reference: "Qur'an 2:262"
-                },
+                }
                 
             ];
             
